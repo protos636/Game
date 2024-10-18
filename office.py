@@ -46,6 +46,12 @@ class Game:
             if (all([self.board[i][j] == player for j in range(3)]) or
             all([self.board[j][i] == player for j in range(3)])):
                 return True
+                # ТУТ ДОДЕЛАТЬ!
+        for i in range(2):
+            for j in range(i):
+                if (self.board[i][j] == self.board[i+1][j+1] and 
+                self.board[i+1][j+1] == self.board[2][j]):
+                    print('xe')
         return False
         
 def main():
