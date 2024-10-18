@@ -41,36 +41,29 @@ class Game:
                     return False
         return True
         
-    def check_win(self):
-        is_win = False
-        counter = 0
-        for row in range(self.field_size):
-            for column in range(self.field_size - 2):
-                if ((self.board[row][column] == self.board[row][column + 1]) and
-                   (self.board[row][column + 1] == self.board[row][column + 2])):
-                       print(self.board[row][column])
-        print(counter)
-        return is_win    
-
+    def check_win(self, player):
+        for i in range(3):
+            if (all([self.board[i][j] == player for j in range(3)]) or
+            all([self.board[j][i] == player for j in range(3)])):
+                return True
+        return False
+        
 def main():
     gamer = Game()
     current_player = 'X'
     running = True
     while running:
-        gamer.print_board()
+        row, column = input_mark(gamer)
         print(f'Ход делает {current_player}')
-        x, y = input_mark(gamer)
-        gamer.make_move(x, y, current_player)
-        current_player = 'O' if current_player == 'X' else 'X'
-        gamer.print_board()
+        gamer.make_move(row, column, current_player)
+        if gamer.check_win(current_player):
+            print(f'player {current_player} won')
+            running = False
         if gamer.is_board_full():
             print('Its a draw. Game board is full.')
-            break
-        if gamer.check_win():
-            print('player win')
-            break
-        
-        
+            running = False
+        gamer.print_board()
+        current_player = 'O' if current_player == 'X' else 'X'
 def input_mark(gamer):
     while True:
         try:
