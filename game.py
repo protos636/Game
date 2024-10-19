@@ -45,9 +45,8 @@ def input_mark(gamer):
     return row, column
 
 def save_result(player):
-    file = open('results.txt', 'a')
-    file.write(player)
-    file.close()
+    with open('results.txt', 'a') as file:
+        file.write(player)
 
 if __name__ == '__main__':
     main()
