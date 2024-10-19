@@ -7,14 +7,17 @@ def main():
     current_player = 'X'
     running = True
     while running:
-        row, column = input_mark(gamer)
         print(f'Ход делает {current_player}')
+        row, column = input_mark(gamer)
         gamer.make_move(row, column, current_player)
         if gamer.check_win(current_player):
+            status = f'player {current_player} won\n'
+            save_result(status)
             print(f'player {current_player} won')
             running = False
         if gamer.is_board_full():
-            print('Its a draw. Game board is full.')
+            status = 'Its a draw\n'
+            save_result(status)
             running = False
         gamer.print_board()
         current_player = 'O' if current_player == 'X' else 'X'
@@ -41,6 +44,10 @@ def input_mark(gamer):
             break
     return row, column
 
+def save_result(player):
+    file = open('results.txt', 'a')
+    file.write(player)
+    file.close()
 
 if __name__ == '__main__':
     main()
